@@ -3,53 +3,52 @@ import { DataGrid, GridColDef, GridToolbarContainer } from '@mui/x-data-grid';
 import {BASEURL} from '../constants'
 import Paper from '@mui/material/Paper';
 
-type Worker = {
+type Log = {
   id: string,
-  name: string,
-  description: string,
-  bot: string
+  date: string,
+  message: string,
+  bot: string,
+  worker: string
 }
 
-type Workers = Worker[];
+type Logs = Log[];
 
 const columns: GridColDef[] = [
-  { field: 'name', headerName: 'Name', width: 130 },
-  { field: 'description', headerName: 'Description', width: 130 },
+  { field: 'created', headerName: 'Date', width: 130 },
+  { field: 'message', headerName: 'Description', width: 130 },
 ]
 
-type DataTableProps = {
+type DataTableProps ={
   selectedBotID: string,
-  selectedBotName: string
+  selectedWorkerID: string
 }
+export const LogTable = ({ selectedBotID, selectedWorkerID }: DataTableProps) => {
 
-export const DataTable = ({ selectedBotID, selectedBotName }: DataTableProps) => {
-  const [workers, setWorkers] = useState<Workers>([])
-
+  const [logs, setLogs] = useState<Logs>([])
   useEffect(() => {
-    fetch(`${BASEURL}/workers?bot=${selectedBotName}`)
+    fetch(`${BASEURL}/logs${selectedBotID ? '?bot='+selectedBotID : ''}${selectedWorkerID ? '&worker='+selectedWorkerID : ''}`)
       .then(response => response.json())
       .then(data => {
-        setWorkers(data);
+        console.log(data);
+        setLogs(data)
       })
       .catch(error => console.error('Error:', error.msg));
-  }, [selectedBotName])
+  }, [selectedBotID, selectedWorkerID])
 
   return (
-    <>
     <Paper sx={{ height: '100%', width: '100%' }}>
       <DataGrid
         slots={{ toolbar: () => (   
           <GridToolbarContainer>
-            <h3>Workers</h3>
+            <h3>Logs</h3>
           </GridToolbarContainer>
         )}}
-        rows={workers}
+        rows={logs}
         columns={columns}
-        pageSizeOptions={[]}
+        pageSizeOptions={[10,20,30]}
         checkboxSelection
         sx={{ border: 0 }}
       />
     </Paper>
-    </>
   );
 };

@@ -34,29 +34,32 @@ export const BotSelect = ({ selectedBotID, setSelectedBotID,  setSelectedBotName
     fetch(`${BASEURL}/bots`)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        console.log('got bots : ', data)
         setBots(data);
       })
       .catch(error => console.error('Error:', error.msg));
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    setSelectedBotName(() => bots.filter(bot => bot.id === selectedBotID)[0]?.name || '')
+  }, [selectedBotID]);
 
   const handleChange = (event: SelectChangeEvent) => {
     setSelectedBotID(event.target.value as string);
-    setSelectedBotName(() => bots.filter(bot => bot.id === selectedBotID)[0].name)
   };
 
   return (
     <FormControl fullWidth>
       <InputLabel id="bot-select-label">Bot</InputLabel>
       <Select
-          labelId="bot-select-label"
-          id="bot-select"
-          value={selectedBotID}
-          label="Bots"
-          onChange={handleChange}
-        >
+        labelId="bot-select-label"
+        id="bot-select"
+        value={selectedBotID}
+        label="Bots"
+        onChange={handleChange}
+      >
       {bots.map(({id, name, status}) => (
-        <MenuItem value={id}>
+        <MenuItem value={id} key={id}>
           <Box sx={{
             width: '100%',
             display: 'flex',
