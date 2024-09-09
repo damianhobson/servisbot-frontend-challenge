@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { BASEURL } from '../constants'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
@@ -7,7 +8,6 @@ import StopCircleIcon from '@mui/icons-material/StopCircle';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 enum Statuses{
   DISABLED = 'DISABLED',
@@ -22,17 +22,13 @@ type BotProps = {
 }
 type Bots = BotProps[];
 
-const getStatusColor = (status: string ) => {
-  if (status === 'DISABLED') return 'red';
-  else if (status === 'PAUSED') return 'orange';
-  else return 'green';
-}
+
 const statusColor= {'DISABLED':'red', 'PAUSED': 'orange', 'ENABLED': 'green'};
 
 export const BotList = () => {
   const [bots, setBots] = useState<Bots>([])
   useEffect(() => {
-    fetch('http://localhost:8080/bots')
+    fetch(`${BASEURL}/bots`)
       .then(response => response.json())
       .then(data => {
         console.log(data);
@@ -57,7 +53,7 @@ export const BotList = () => {
         }>
         <ListItemAvatar>
           <Avatar>
-            <SmartToyIcon sx={{color: statusColor[status] || 'green'}}/>
+            <SmartToyIcon sx={{color: statusColor[status] || 'grey'}}/>
           </Avatar>
         </ListItemAvatar>
         <ListItemText

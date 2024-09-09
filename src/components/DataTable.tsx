@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { DataGrid, GridColDef, GridToolbarContainer } from '@mui/x-data-grid';
-import {BASEURL} from '../constants'
+import { BASEURL } from '../constants'
 import Paper from '@mui/material/Paper';
 
 type Worker = {
@@ -13,8 +13,9 @@ type Worker = {
 type Workers = Worker[];
 
 const columns: GridColDef[] = [
-  { field: 'name', headerName: 'Name', width: 130 },
-  { field: 'description', headerName: 'Description', width: 130 },
+  { field: 'name', headerName: 'Name', flex: .5 },
+  { field: 'bot', headerName: 'Bot', flex: .5 },
+  { field: 'description', headerName: 'Description', flex: 1 },
 ]
 
 type DataTableProps = {
@@ -22,7 +23,7 @@ type DataTableProps = {
   selectedBotName: string
 }
 
-export const DataTable = ({ selectedBotID, selectedBotName }: DataTableProps) => {
+export const DataTable = ({ selectedBotName }: DataTableProps) => {
   const [workers, setWorkers] = useState<Workers>([])
 
   useEffect(() => {
@@ -46,7 +47,6 @@ export const DataTable = ({ selectedBotID, selectedBotName }: DataTableProps) =>
         rows={workers}
         columns={columns}
         pageSizeOptions={[]}
-        checkboxSelection
         sx={{ border: 0 }}
       />
     </Paper>

@@ -9,31 +9,33 @@ type Log = {
   message: string,
   bot: string,
   worker: string
-}
+};
 
 type Logs = Log[];
 
 const columns: GridColDef[] = [
-  { field: 'created', headerName: 'Date', width: 130 },
-  { field: 'message', headerName: 'Description', width: 130 },
-]
+  { field: 'created', headerName: 'Date', flex: 0.3 },
+  { field: 'message', headerName: 'Description', flex: 1 },
+];
 
 type DataTableProps ={
   selectedBotID: string,
   selectedWorkerID: string
-}
+};
+
 export const LogTable = ({ selectedBotID, selectedWorkerID }: DataTableProps) => {
 
-  const [logs, setLogs] = useState<Logs>([])
+  const [logs, setLogs] = useState<Logs>([]);
+
   useEffect(() => {
-    fetch(`${BASEURL}/logs${selectedBotID ? '?bot='+selectedBotID : ''}${selectedWorkerID ? '&worker='+selectedWorkerID : ''}`)
+    if (selectedBotID) fetch(`${BASEURL}/logs?bot=${selectedBotID}${selectedWorkerID ? '&worker='+selectedWorkerID : ''}`)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         setLogs(data)
       })
       .catch(error => console.error('Error:', error.msg));
-  }, [selectedBotID, selectedWorkerID])
+      else setLogs([]);
+  }, [selectedBotID, selectedWorkerID]);
 
   return (
     <Paper sx={{ height: '100%', width: '100%' }}>
@@ -46,7 +48,13 @@ export const LogTable = ({ selectedBotID, selectedWorkerID }: DataTableProps) =>
         rows={logs}
         columns={columns}
         pageSizeOptions={[10,20,30]}
-        checkboxSelection
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 12,
+            },
+          },
+        }}
         sx={{ border: 0 }}
       />
     </Paper>

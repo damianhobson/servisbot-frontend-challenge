@@ -1,23 +1,11 @@
 import { useState, useEffect } from 'react'
 import Grid from '@mui/material/Grid2';
-
 import { DataTable } from '../components/DataTable';
 import { LogTable } from '../components/LogTable';
 import { BotSelect } from '../components/BotSelect';
 import { WorkerSelect } from '../components/WorkerSelect';
 import { ViewSelect } from '../components/ViewSelect';
-// enum Statuses{
-//   DISABLED = 'DISABLED',
-//   ENABLED = 'ENABLED',
-//   PAUSED = 'PAUSED',
-// }
-// type BotProps = {
-//   id: string,
-//   name: string,
-//   description: string,
-//   status: Statuses
-// }
-// type Bots = BotProps[];
+
 const views = [{from:'Bots', to: 'Workers', key: 'bots_workers'}, {from:'Bots', to:'Logs', key: 'bots_logs'}, {from:'Workers', to:'Logs', key: 'workers_logs'}];
 
 export const DataLayout = () => {
