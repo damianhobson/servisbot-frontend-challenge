@@ -19,17 +19,16 @@ export const DataLayout = () => {
 
   return (
     <Grid container spacing={2}>
-      <Grid size={3}>
+      <Grid size={{ xs: 12, md: 4 , lg:3}}>
         <ViewSelect views={VIEWS} selectedView={selectedView} setSelectedView={setSelectedView}/>
       </Grid>
-      <Grid size={3}>
+      <Grid size={{ xs: 12, md: 4, lg:3 }}>
         <BotSelect selectedBotID={selectedBotID} setSelectedBotID={setSelectedBotID} setSelectedBotName={setSelectedBotName}/>
       </Grid>
-      <Grid size={3}>
+      <Grid size={{ xs: 12, md: 4, lg:3 }}>
         {selectedView === 'workers_logs' ? <WorkerSelect selectedWorkerID={selectedWorkerID} setSelectedWorkerID={setSelectedWorkerID} selectedBotName={selectedBotName}/> : ''}
       </Grid>
-      <Grid size={3}>
-      </Grid>
+
       <Grid size={12}>
         {selectedView === 'bots_workers' ?
           <WorkerTable selectedBotID={selectedBotID} selectedBotName={selectedBotName}/>

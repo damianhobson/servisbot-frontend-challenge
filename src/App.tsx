@@ -9,11 +9,11 @@ function App() {
       <Grid size={12}>
         Name
       </Grid>
-      <Grid size={3}>
+      <Grid size={2}>
         {/* <BotList/>
         <BotSelect/> */}
       </Grid>
-      <Grid size={9}>
+      <Grid size={10}>
         <DataLayout/>
       </Grid>
     </Grid> 
