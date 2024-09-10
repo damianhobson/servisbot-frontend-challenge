@@ -28,13 +28,11 @@ const statusColor= {'DISABLED':'red', 'PAUSED': 'orange', 'ENABLED': 'green'};
 
 export const BotSelect = ({ selectedBotID, setSelectedBotID,  setSelectedBotName}:BotSelectProps) => {
   const [bots, setBots] = useState<Bots>([])
-  // const [selectedBotID, setSelectedBotID] = useState('');
 
   useEffect(() => {
     fetch(`${BASEURL}/bots`)
       .then(response => response.json())
       .then(data => {
-        console.log('got bots : ', data)
         setBots(data);
       })
       .catch(error => console.error('Error:', error.msg));
@@ -50,24 +48,28 @@ export const BotSelect = ({ selectedBotID, setSelectedBotID,  setSelectedBotName
 
   return (
     <FormControl fullWidth>
-      <InputLabel id="bot-select-label">Bot</InputLabel>
+      <InputLabel id='bot-select-label'>Bot</InputLabel>
       <Select
-        labelId="bot-select-label"
-        id="bot-select"
+        labelId='bot-select-label'
+        id='bot-select'
+        data-testid='bot-select'
         value={selectedBotID}
-        label="Bots"
+        label='Bots'
         onChange={handleChange}
       >
       {bots.map(({id, name, status}) => (
         <MenuItem value={id} key={id}>
-          <Box sx={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between'
-          }}>
+          <Box 
+            data-testid={`bot-select-item_${id}`}
+            sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between'
+            }}
+          >
             <div>{name}</div>
-            <CircleIcon fontSize="small" sx={{color: statusColor[status] || 'grey'}}/>
+            <CircleIcon fontSize='small' sx={{color: statusColor[status] || 'grey'}}/>
           </Box>
         </MenuItem>
       ))}

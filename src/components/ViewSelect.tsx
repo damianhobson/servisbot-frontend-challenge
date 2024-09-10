@@ -25,12 +25,13 @@ export const ViewSelect = ({views, selectedView, setSelectedView }:ViewSelectPro
 
   return (
     <FormControl fullWidth>
-      <InputLabel id="view-select-label">Views</InputLabel>
+      <InputLabel id='view-select-label'>Views</InputLabel>
       <Select
-        labelId="view-select-label"
-        id="view-select"
+        labelId='view-select-label'
+        id='view-select'
+        data-testid='view-select'
         value={selectedView}
-        label="Views"
+        label='Views'
         onChange={handleChange}
       >
       {views.map(({from, to, key}: View) => (
@@ -41,7 +42,7 @@ export const ViewSelect = ({views, selectedView, setSelectedView }:ViewSelectPro
             flexDirection: 'row',
             justifyContent: 'space-between'
           }}>
-            <div>{from} {<ArrowForwardIcon fontSize="small" sx={{"marginBottom": "-5px"}}/>} {to}</div>
+            <div data-testid={`view-select-${key}`}>{from} {<ArrowForwardIcon fontSize='small' sx={{'marginBottom': '-5px'}}/>} {to}</div>
           </Box>
         </MenuItem>
       ))}

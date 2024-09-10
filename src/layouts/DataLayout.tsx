@@ -1,29 +1,26 @@
 import { useState, useEffect } from 'react'
 import Grid from '@mui/material/Grid2';
-import { DataTable } from '../components/DataTable';
+import { WorkerTable } from '../components/WorkerTable';
 import { LogTable } from '../components/LogTable';
 import { BotSelect } from '../components/BotSelect';
 import { WorkerSelect } from '../components/WorkerSelect';
 import { ViewSelect } from '../components/ViewSelect';
-
-const views = [{from:'Bots', to: 'Workers', key: 'bots_workers'}, {from:'Bots', to:'Logs', key: 'bots_logs'}, {from:'Workers', to:'Logs', key: 'workers_logs'}];
+import {VIEWS} from '../constants'
 
 export const DataLayout = () => {
-  const [selectedView, setSelectedView] = useState(views[0].key);
-
+  const [selectedView, setSelectedView] = useState(VIEWS[0].key);
   const [selectedBotID, setSelectedBotID] = useState('');
   const [selectedWorkerID, setSelectedWorkerID] = useState('');
   const [selectedBotName, setSelectedBotName] = useState('');
   
   useEffect(() => {
-    console.log('workers_logs')
     if (selectedView === 'workers_logs') setSelectedWorkerID('');
   }, [selectedView])
 
   return (
     <Grid container spacing={2}>
       <Grid size={3}>
-        <ViewSelect views={views} selectedView={selectedView} setSelectedView={setSelectedView}/>
+        <ViewSelect views={VIEWS} selectedView={selectedView} setSelectedView={setSelectedView}/>
       </Grid>
       <Grid size={3}>
         <BotSelect selectedBotID={selectedBotID} setSelectedBotID={setSelectedBotID} setSelectedBotName={setSelectedBotName}/>
@@ -35,7 +32,7 @@ export const DataLayout = () => {
       </Grid>
       <Grid size={12}>
         {selectedView === 'bots_workers' ?
-          <DataTable selectedBotID={selectedBotID} selectedBotName={selectedBotName}/>
+          <WorkerTable selectedBotID={selectedBotID} selectedBotName={selectedBotName}/>
           :
           <LogTable selectedBotID={selectedBotID} selectedWorkerID={selectedWorkerID}/>
         }

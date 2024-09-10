@@ -15,15 +15,15 @@ type Logs = Log[];
 
 const columns: GridColDef[] = [
   { field: 'created', headerName: 'Date', flex: 0.3 },
-  { field: 'message', headerName: 'Description', flex: 1 },
+  { field: 'message', headerName: 'Message', flex: 1 },
 ];
 
-type DataTableProps ={
+type LogTableProps ={
   selectedBotID: string,
   selectedWorkerID: string
 };
 
-export const LogTable = ({ selectedBotID, selectedWorkerID }: DataTableProps) => {
+export const LogTable = ({ selectedBotID, selectedWorkerID }: LogTableProps) => {
 
   const [logs, setLogs] = useState<Logs>([]);
 
@@ -42,7 +42,7 @@ export const LogTable = ({ selectedBotID, selectedWorkerID }: DataTableProps) =>
       <DataGrid
         slots={{ toolbar: () => (   
           <GridToolbarContainer>
-            <h3>Logs</h3>
+            <h3 role='table-title'>Logs</h3>
           </GridToolbarContainer>
         )}}
         rows={logs}
@@ -56,6 +56,7 @@ export const LogTable = ({ selectedBotID, selectedWorkerID }: DataTableProps) =>
           },
         }}
         sx={{ border: 0 }}
+        data-testid='log-table'
       />
     </Paper>
   );

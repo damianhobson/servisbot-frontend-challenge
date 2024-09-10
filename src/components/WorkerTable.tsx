@@ -18,12 +18,12 @@ const columns: GridColDef[] = [
   { field: 'description', headerName: 'Description', flex: 1 },
 ]
 
-type DataTableProps = {
+type WorkerTableProps = {
   selectedBotID: string,
   selectedBotName: string
 }
 
-export const DataTable = ({ selectedBotName }: DataTableProps) => {
+export const WorkerTable = ({ selectedBotName }: WorkerTableProps) => {
   const [workers, setWorkers] = useState<Workers>([])
 
   useEffect(() => {
@@ -41,13 +41,14 @@ export const DataTable = ({ selectedBotName }: DataTableProps) => {
       <DataGrid
         slots={{ toolbar: () => (   
           <GridToolbarContainer>
-            <h3>Workers</h3>
+            <h3 role='table-title'>Workers</h3>
           </GridToolbarContainer>
         )}}
         rows={workers}
         columns={columns}
         pageSizeOptions={[]}
         sx={{ border: 0 }}
+        data-testid='worker-table'
       />
     </Paper>
     </>

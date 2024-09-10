@@ -28,7 +28,6 @@ export const WorkerSelect = ({ selectedWorkerID, setSelectedWorkerID, selectedBo
     fetch(`${BASEURL}/workers${selectedBotName ? '?=' + selectedBotName : ''}`)
       .then(response => response.json())
       .then(data => {
-        console.log('SETTING WORKERS : ', data);
         setWorkers(data);
       })
       .catch(error => console.error('Error:', error.msg));
@@ -44,21 +43,24 @@ export const WorkerSelect = ({ selectedWorkerID, setSelectedWorkerID, selectedBo
 
   return (
     <FormControl fullWidth>
-      <InputLabel id="worker-select-label">Worker</InputLabel>
+      <InputLabel id='worker-select-label'>Worker</InputLabel>
       <Select
-        labelId="worker-select-label"
-        id="worker-select"
+        labelId='worker-select-label'
+        id='worker-select'
+        data-testid='worker-select'
         value={selectedWorkerID}
-        label="Worker"
+        label='Worker'
         onChange={handleChange}
       >
       {workers.filter(worker => worker.bot === selectedBotName).map(({id, name}) => (
         <MenuItem value={id} key={id}>
-          <Box sx={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between'
+          <Box 
+            data-testid={`worker-select-item_${id}`}
+            sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between'
           }}>
             <div>{name}</div>
           </Box>
