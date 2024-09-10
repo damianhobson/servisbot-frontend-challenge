@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import moment from 'moment';
 import { DataGrid, GridColDef, GridToolbarContainer } from '@mui/x-data-grid';
-import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
 import {BASEURL} from '../constants'
 import Paper from '@mui/material/Paper';
 
@@ -17,24 +16,23 @@ type Log = {
 
 type Logs = Log[];
 
+const toolTipStyles = {fontSize:'16px', color: 'rgba(0, 0, 0, 0.87)', backgroundColor:'#FFF', margin: '-10px', border: '1px solid rgba(0, 0, 0, 0.87)', borderRadius: '2px', padding:'5px'};
+
 const columns: GridColDef[] = [
   { field: 'created', headerName: 'Date Created', flex: 0.3 },
   { field: 'message', headerName: 'Message', flex: 1,
     renderCell: (params: any) =>  (
-      <Tooltip title={<Typography sx={{fontSize:'16px'}}>{params.value.toString()}</Typography>} >
+      <Tooltip title={<Typography sx={toolTipStyles}>{params.value.toString()}</Typography>} >
         <span className="table-cell-truncate">{params.value.toString()}</span>
       </Tooltip>
      ), 
   },
 ];
 
-
 type LogTableProps ={
   selectedBotID: string,
   selectedWorkerID: string
 };
-
-
 
 export const LogTable = ({ selectedBotID, selectedWorkerID }: LogTableProps) => {
   const [logs, setLogs] = useState<Logs>([]);
@@ -65,7 +63,6 @@ export const LogTable = ({ selectedBotID, selectedWorkerID }: LogTableProps) => 
             noRowsVariant: 'skeleton',
           },
         }}
-        // baseTooltip={{}}
         rows={logs}
         columns={columns}
         pageSizeOptions={[12,20,30]}

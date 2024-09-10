@@ -1,19 +1,19 @@
 import Grid from '@mui/material/Grid2';
-// import { BotList } from './components/BotList';
 import { DataLayout } from './layouts/DataLayout';
-// import { BotSelect } from './components/BotSelect';
+import logo from './assets/servisbot-logo.png';
+import { Menu } from './components/Menu';
 
 function App() {
   return (
     <Grid container spacing={2}>
-      <Grid size={12}>
-        Name
+      <Grid size={12} sx={{borderBottom:'2px solid rgba(0, 0, 0, 0.4)', marginBottom: '20px', padding: '10px'}}>
+        <img src={logo}/>
       </Grid>
-      <Grid size={2}>
-        {/* <BotList/>
-        <BotSelect/> */}
+      <Grid size={{ xs: 12, md: 2 }}>
+        <Menu/>
+        <Grid size={{ xs: 12 }} sx={{'@media (max-width: 900px)': {borderBottom:'1px solid rgba(0, 0, 0, 0.4)', marginBottom: '20px', padding: '10px'}}}></Grid>
       </Grid>
-      <Grid size={10}>
+      <Grid size={{xs: 12, md: 10}}>
         <DataLayout/>
       </Grid>
     </Grid> 
