@@ -19,7 +19,6 @@ global.fetch = () =>
     json: () => Promise.resolve(testWorkerData),
   })
 
-
 describe('WorkerSelect', () => {
   it('renders the Bot Select component', async () => {
     const {getByTestId}  = await act( async () => render(<WorkerSelect selectedWorkerID={''} setSelectedWorkerID={()=>{}} selectedBotName={'Bot 1'}/>));

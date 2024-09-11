@@ -17,12 +17,14 @@ export const Menu = ({ page, setPage }: MenuProps) => {
     <Stack
       direction={{ xs: "row", sm: "column" }}
       spacing={{ xs: 1, sm: 2, md: 4 }}
+      data-testid="menu"
     >
       <Button
         variant={page === "data" ? "contained" : "outlined"}
         onClick={handleClick}
         value="data"
         endIcon={<TableChartIcon />}
+        role="button"
       >
         Data Dive
       </Button>
@@ -32,6 +34,7 @@ export const Menu = ({ page, setPage }: MenuProps) => {
         onClick={handleClick}
         value="edit"
         endIcon={<SmartToyIcon />}
+        role="button"
       >
         Editor
       </Button>

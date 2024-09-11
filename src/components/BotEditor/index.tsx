@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import Paper from "@mui/material/Paper";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import IconButton from "@mui/material/IconButton";
@@ -66,53 +66,60 @@ export const BotEditor = () => {
   }, [updateBot]);
 
   return (
-    <List sx={{ maxWidth: "500px" }}>
-      {bots.map(({ id, name, description, status }) => (
-        <ListItem
-          key={id}
-          secondaryAction={
-            <>
-              <IconButton
-                edge="end"
-                disabled={status === "ENABLED"}
-                onClick={() =>
-                  setUpdateBot({ id: id, status: Statuses["ENABLED"] })
-                }
-                aria-label="enable"
-              >
-                <PlayCircleIcon sx={{ fontSize: "40px" }} />
-              </IconButton>
-              <IconButton
-                edge="end"
-                disabled={status === "PAUSED"}
-                onClick={() =>
-                  setUpdateBot({ id: id, status: Statuses["PAUSED"] })
-                }
-                aria-label="pause"
-              >
-                <PauseCircleIcon sx={{ fontSize: "40px" }} />
-              </IconButton>
-              <IconButton
-                edge="end"
-                disabled={status === "DISABLED"}
-                onClick={() =>
-                  setUpdateBot({ id: id, status: Statuses["DISABLED"] })
-                }
-                aria-label="disable"
-              >
-                <StopCircleIcon sx={{ fontSize: "40px" }} />
-              </IconButton>
-            </>
-          }
-        >
-          <ListItemAvatar>
-            <Avatar>
-              <SmartToyIcon sx={{ color: STATUSCOLORS[status] || "grey" }} />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary={name} secondary={description} />
-        </ListItem>
-      ))}
-    </List>
+    <Paper sx={{ height: "100%", width: "100%" }}>
+      <List data-testid="bot-editor">
+        {bots.map(({ id, name, description, status }) => (
+          <ListItem
+            key={id}
+            role="listItem"
+            secondaryAction={
+              <>
+                <IconButton
+                  edge="end"
+                  disabled={status === "ENABLED"}
+                  onClick={() =>
+                    setUpdateBot({ id: id, status: Statuses["ENABLED"] })
+                  }
+                  aria-label="enable"
+                >
+                  <PlayCircleIcon sx={{ fontSize: "40px" }} />
+                </IconButton>
+                <IconButton
+                  edge="end"
+                  disabled={status === "PAUSED"}
+                  onClick={() =>
+                    setUpdateBot({ id: id, status: Statuses["PAUSED"] })
+                  }
+                  aria-label="pause"
+                >
+                  <PauseCircleIcon sx={{ fontSize: "40px" }} />
+                </IconButton>
+                <IconButton
+                  edge="end"
+                  disabled={status === "DISABLED"}
+                  onClick={() =>
+                    setUpdateBot({ id: id, status: Statuses["DISABLED"] })
+                  }
+                  aria-label="disable"
+                >
+                  <StopCircleIcon sx={{ fontSize: "40px" }} />
+                </IconButton>
+              </>
+            }
+          >
+            <ListItemAvatar>
+              <Avatar>
+                <SmartToyIcon sx={{ color: STATUSCOLORS[status] || "grey" }} />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              role="listItemText"
+              primary={name}
+              secondary={description}
+            />
+          </ListItem>
+        ))}
+      </List>
+    </Paper>
   );
 };

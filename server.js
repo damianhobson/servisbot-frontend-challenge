@@ -13,23 +13,19 @@ app.get("/status", (req, res) => {
 });
 
 app.get("/bots", (req, res) => {
-  console.log('bots called');
   let rawdata = fs.readFileSync('./data/bots.json');
   let bots = JSON.parse(rawdata);
   res.json(bots)
 });
 
 app.get("/workers", (req, res) => {
-  console.log('workers called');
   let rawdata = fs.readFileSync('./data/workers.json');
   let workers = JSON.parse(rawdata);
   if (req.query.bot) workers = workers.filter((worker) => worker.bot === req.query.bot)
   res.json(workers)
 });
 
-//logs${selectedBotID ? '?bot='+selectedBotID : ''}${selectedWorkerID ? '?worker='+selectedWorkerID : ''
 app.get("/logs", (req, res) => {
-  console.log('logs called : bot ' , req.query.bot, ' | worker ', req.query.worker);
   const rawdata = fs.readFileSync('./data/logs.json');
   let logs = JSON.parse(rawdata);
   if (req.query.bot) logs = logs.filter((log) => log.bot === req.query.bot);
@@ -38,33 +34,29 @@ app.get("/logs", (req, res) => {
 });
 
 app.post("/changestatus", jsonParser, (req, res) => {
-
   fs.readFile('./data/bots.json', (err, rawdata) => {
     if (err) console.log(err);
     else { 
-    let bots = JSON.parse(rawdata);
-    console.log(req.body)
-    const botID = req.body.id;
-    const botStatus = req.body.status;
-    console.log('Updating ', botID, ' to ', botStatus);
-    if (!botID || !botStatus) res.json({ 'success': false });
-    bots = bots.map((bot) => {
-      if (bot.id === botID) bot.status = botStatus;
-      return bot;
-    })
-    let data = JSON.stringify(bots);
-    fs.writeFile('./data/bots.json', data, (err) => {
-      if (err) {
-        console.log(err);
-        res.json({ 'success': false });
-      } else {
-        console.log("File written successfully\n");
-        res.json({ 'success': true, 'bots': bots })
-      }
-    });
+      let bots = JSON.parse(rawdata);
+      const botID = req.body.id;
+      const botStatus = req.body.status;
+      if (!botID || !botStatus) res.json({ 'success': false });
+      bots = bots.map((bot) => {
+        if (bot.id === botID) bot.status = botStatus;
+        return bot;
+      })
+      let data = JSON.stringify(bots);
+      fs.writeFile('./data/bots.json', data, (err) => {
+        if (err) {
+          console.log(err);
+          res.json({ 'success': false });
+        } else {
+          console.log("Bots updated successfully\n");
+          res.json({ 'success': true, 'bots': bots })
+        }
+      });
     }
   });
-  
 });
 
 

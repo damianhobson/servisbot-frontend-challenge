@@ -1,12 +1,7 @@
 import { render, act, within } from '@testing-library/react'
 import {LogTable} from './index.tsx'
 import '@testing-library/jest-dom'
-const domTestingLib = require('@testing-library/dom')
-const {queryHelpers} = domTestingLib
-const queryByRowIndex = queryHelpers.queryByAttribute.bind(
-  null,
-  'data-rowindex',
-)
+
 const testLogData = [
   {
     "id": "a3922ad6-49ed-4cf3-8293-cc4d58a5d4c9",
@@ -35,7 +30,6 @@ global.fetch = () =>
   Promise.resolve({
     json: () => Promise.resolve(testLogData),
   })
-
 
 describe('Log Table', async () => {
   
