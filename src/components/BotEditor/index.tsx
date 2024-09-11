@@ -10,8 +10,8 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import ListItemText from "@mui/material/ListItemText";
-import { BASEURL } from "../constants";
-import { STATUSCOLORS } from "../constants";
+import { BASEURL } from "../../constants";
+import { STATUSCOLORS } from "../../constants";
 
 enum Statuses {
   DISABLED = "DISABLED",
@@ -30,7 +30,7 @@ type Status = {
   status: Statuses;
 };
 
-export const BotList = () => {
+export const BotEditor = () => {
   const [bots, setBots] = useState<Bots>([]);
   const [updateBot, setUpdateBot] = useState<Status>();
 
@@ -38,7 +38,6 @@ export const BotList = () => {
     fetch(`${BASEURL}/bots`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setBots(data);
       })
       .catch((error) => console.error("Error:", error.msg));
@@ -58,7 +57,6 @@ export const BotList = () => {
         .then((response) => {
           console.log(response);
           if (response.success) {
-            console.log("UPDATING BOTS");
             setBots(response.bots);
           }
         })
@@ -68,7 +66,7 @@ export const BotList = () => {
   }, [updateBot]);
 
   return (
-    <List>
+    <List sx={{ maxWidth: "500px" }}>
       {bots.map(({ id, name, description, status }) => (
         <ListItem
           key={id}
@@ -82,7 +80,7 @@ export const BotList = () => {
                 }
                 aria-label="enable"
               >
-                <PlayCircleIcon />
+                <PlayCircleIcon sx={{ fontSize: "40px" }} />
               </IconButton>
               <IconButton
                 edge="end"
@@ -92,7 +90,7 @@ export const BotList = () => {
                 }
                 aria-label="pause"
               >
-                <PauseCircleIcon />
+                <PauseCircleIcon sx={{ fontSize: "40px" }} />
               </IconButton>
               <IconButton
                 edge="end"
@@ -102,7 +100,7 @@ export const BotList = () => {
                 }
                 aria-label="disable"
               >
-                <StopCircleIcon />
+                <StopCircleIcon sx={{ fontSize: "40px" }} />
               </IconButton>
             </>
           }

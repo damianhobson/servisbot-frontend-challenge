@@ -1,5 +1,5 @@
 import { render, act } from '@testing-library/react'
-import {BotSelect} from '../components/BotSelect.tsx'
+import {BotSelect} from './index.tsx'
 import '@testing-library/jest-dom'
 const testBotData = [
   { 

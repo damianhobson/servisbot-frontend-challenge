@@ -1,5 +1,5 @@
 import { render, act } from '@testing-library/react'
-import {WorkerSelect} from '../components/WorkerSelect.tsx'
+import {WorkerSelect} from './index.tsx'
 import '@testing-library/jest-dom'
 const testWorkerData = [
   { 

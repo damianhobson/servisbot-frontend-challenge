@@ -1,5 +1,5 @@
 import { render, act, within } from '@testing-library/react'
-import {WorkerTable} from '../components/WorkerTable.tsx'
+import {WorkerTable} from './index.tsx'
 import '@testing-library/jest-dom'
 const domTestingLib = require('@testing-library/dom')
 const {queryHelpers} = domTestingLib

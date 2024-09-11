@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
-import {ViewSelect} from '../components/ViewSelect.tsx'
-import {VIEWS} from '../constants'
+import {ViewSelect} from '../ViewSelect'
+import {VIEWS} from '../../constants.ts'
 
 describe('ViewSelect', () => {
   it('renders the view component', async () => {

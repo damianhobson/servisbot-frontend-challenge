@@ -3,7 +3,7 @@ import moment from "moment";
 import { DataGrid, GridColDef, GridToolbarContainer } from "@mui/x-data-grid";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import { BASEURL } from "../constants";
+import { BASEURL } from "../../constants";
 import Paper from "@mui/material/Paper";
 
 type Log = {
