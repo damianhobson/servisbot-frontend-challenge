@@ -2,8 +2,8 @@ import { useState } from "react";
 import Grid from "@mui/material/Grid2";
 import { DataLayout } from "./layouts/DataLayout";
 import { EditLayout } from "./layouts/EditLayout";
-import logo from "./assets/servisbot-logo.png";
 import { Menu } from "./components/Menu/";
+import logo from "./assets/servisbot-logo.png";
 
 function App() {
   const [page, setPage] = useState("data");
